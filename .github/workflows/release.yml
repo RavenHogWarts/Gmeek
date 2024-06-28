@@ -22,3 +22,12 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: ${{ contains(github.ref, 'b') && true || false }}
+
+      - name: Trigger Blog Project Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: RavenHogWarts/blog
+          event-type: gmeek-release
+        env:
+          VERSION: ${{ github.ref }}
